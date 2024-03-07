@@ -63,13 +63,13 @@ fun CatListItem(navController: NavHostController, cat: Cat) {
         shape = RoundedCornerShape(16.dp)
     ) {
         Row(modifier = Modifier
+            .clickable {
+                navController.navigate("cat/${cat.id}")
+            }
             .padding(4.dp)) {
             CatImage(cat)
             Column(
                 modifier = Modifier
-                    .clickable {
-                        navController.navigate("cat/${cat.id}")
-                    }
                     .padding(16.dp)
             ) {
                 val owner = if ("null" == cat.owner ||cat.owner.isEmpty()) {
