@@ -15,7 +15,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.verifyNoInteractions
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -43,9 +42,6 @@ class CatRepositoryTest {
         val itemType = object : TypeToken<List<Cat>>() {}.type
         val cats = gson.fromJson<List<Cat>>(Constants.JSON_DATA, itemType)
 
-        // Mock the flow of cats from the DAO
-        `when`(catDao.getAll()).thenReturn(flowOf(cats))
-
         // Call the repository method
         val result = repository.getCats().first()
 
@@ -56,18 +52,4 @@ class CatRepositoryTest {
 
     }
 
-//    @Test(expected = Exception::class)
-//    fun `test getCats error`() = runBlocking {
-//        // Mock an error response from the service
-//        `when`(catService.getCats()).thenThrow(Exception("Failed to fetch cats"))
-//
-//        // Call the repository method
-//        repository.getCats()
-//
-//        // Verify that the service method was called
-//        verify(catService).getCats()
-//
-//        // Verify that the DAO method was not called
-//        verifyNoInteractions(catDao)
-//    }
 }

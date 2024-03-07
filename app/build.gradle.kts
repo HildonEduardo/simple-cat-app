@@ -106,6 +106,7 @@ dependencies {
     implementation("com.github.skydoves:landscapist-glide:$landscapistGlide")
 
     testImplementation("junit:junit:$junit")
+    testImplementation("androidx.compose.ui:ui-test-junit4:1.6.3")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     testImplementation("org.mockito:mockito-core:$mockito")
     testImplementation("org.mockito:mockito-inline:$mockito")
