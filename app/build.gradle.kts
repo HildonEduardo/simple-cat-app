@@ -16,7 +16,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.hdsw.asimpleapp.CustomTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -48,6 +48,15 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+        resources.excludes.addAll(
+            listOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+            )
+        )
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 }
 
@@ -65,10 +74,12 @@ val junit = "4.13.2"
 val glide = "4.16.0"
 val glideCompose = "1.0.0-beta01"
 val mockito = "3.12.4"
+val mockkVersion = "1.13.10"
 val coroutine = "1.8.0"
 val coroutineTest = "1.8.0"
 val coil = "2.6.0"
 val landscapistGlide = "2.3.2"
+val uiAutomator = "2.3.0"
 
 dependencies {
 
@@ -107,9 +118,12 @@ dependencies {
 
     testImplementation("junit:junit:$junit")
     testImplementation("androidx.compose.ui:ui-test-junit4:1.6.3")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:$daggerHiltAnnotationProcessor")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     testImplementation("org.mockito:mockito-core:$mockito")
     testImplementation("org.mockito:mockito-inline:$mockito")
+    androidTestImplementation("io.mockk:mockk-android:${mockkVersion}")
+    androidTestImplementation("io.mockk:mockk-agent:${mockkVersion}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineTest")
     androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -117,4 +131,5 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    androidTestImplementation("androidx.test.uiautomator:uiautomator:$uiAutomator")
 }

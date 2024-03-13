@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -44,12 +45,15 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ASimpleAppNavHost(
-    navController: NavHostController,
+    navController: NavHostController = rememberNavController(),
+    orientation: Int? = LocalConfiguration.current.orientation
 ) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             CatListScreen(
-                navController
+                { catId ->
+                    navController.navigate("cat/$catId")
+                }, orientation
             )
         }
         composable(
@@ -59,7 +63,12 @@ fun ASimpleAppNavHost(
             })
         ) {
             val catId = it.arguments?.getString("catId")
-            catId?.let { id -> CatDetailScreen(navController = navController, catId = id) }
+            catId?.let { id ->
+                CatDetailScreen(onBackClicked = {
+                    navController.navigateUp()
+                }, catId = id,
+                    orientation = orientation)
+            }
         }
     }
 }

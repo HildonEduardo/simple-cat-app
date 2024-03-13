@@ -11,6 +11,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -72,7 +73,8 @@ fun CatImage(
             requestOptions = { RequestOptions().timeout(35 * 1000).override(400) },
             modifier = Modifier
                 .padding(1.dp)
-                .size(if (isThumbnail) 100.dp else 400.dp),
+                .size(if (isThumbnail) 100.dp else 400.dp)
+                .testTag("catImage"),
             loading = {
                 Box(modifier = Modifier.matchParentSize()) {
                     CircularProgressIndicator(

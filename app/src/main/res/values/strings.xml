@@ -3,7 +3,7 @@
     <string name="picture_of_cat">A Beauty picture of a cute cat.</string>
     <string name="image_error">Failed to load gif of a cute cat.</string>
     <string name="back_button">Back screen button</string>
-    <string name="owner_unknown">Unknown Owner</string>
+    <string name="owner_unknown">unknown</string>
     <string name="owner_label">Owner: %1$s</string>
     <string name="tags">Tags: [%1$s]</string>
     <string name="created_at">Created At: %1$s</string>

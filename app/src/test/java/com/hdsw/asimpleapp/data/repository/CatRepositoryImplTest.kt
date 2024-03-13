@@ -3,11 +3,11 @@ package com.hdsw.asimpleapp.data.repository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.hdsw.asimpleapp.data.local.Constants
-import com.hdsw.asimpleapp.data.local.dao.CatDao
+import com.hdsw.asimpleapp.data.local.datasource.LocalDataSource
 import com.hdsw.asimpleapp.data.model.Cat
-import com.hdsw.asimpleapp.data.remote.api.CatService
+import com.hdsw.asimpleapp.data.remote.datasource.RemoteDataSource
+import com.hdsw.asimpleapp.data.repository.impl.CatRepositoryImpl
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
@@ -15,24 +15,22 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 
 @RunWith(MockitoJUnitRunner::class)
-class CatRepositoryTest {
+class CatRepositoryImplTest {
 
     @Mock
-    private lateinit var catService: CatService
-
+    private lateinit var localDataSource: LocalDataSource
     @Mock
-    private lateinit var catDao: CatDao
+    private lateinit var remoteDataSource: RemoteDataSource
 
-    private lateinit var repository: CatRepository
+    private lateinit var repository: CatRepositoryImpl
 
     @Before
     fun setup() {
-        repository = CatRepository(catService, catDao)
+        repository = CatRepositoryImpl(localDataSource, remoteDataSource)
     }
 
     @Test
@@ -46,7 +44,7 @@ class CatRepositoryTest {
         val result = repository.getCats().first()
 
         // Verify that the DAO method was called to insert the data
-        verify(catDao).insertAll(cats)
+        verify(localDataSource).addAll(cats)
 
         Assert.assertNotNull(result)
 
